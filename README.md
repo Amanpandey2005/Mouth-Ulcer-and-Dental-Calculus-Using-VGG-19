@@ -1,4 +1,4 @@
-![ChatGPT Image Jul 26, 2025, 02_08_55 PM](https://github.com/user-attachments/assets/05cfc119-6725-4e2e-bc2b-e104e37ae7f1)🦷 Dental Calculus and Mouth Ulcer Detection Using Deep Learning (VGG19)
+🦷 Dental Calculus and Mouth Ulcer Detection Using Deep Learning (VGG19)
 📌 Introduction
 Oral health issues such as dental calculus (tartar) and mouth ulcers are widespread and often go undetected in early stages, leading to painful outcomes and long-term dental complications. This project introduces a deep learning-based image classification system using a fine-tuned VGG19 model to automate the detection of:
 
