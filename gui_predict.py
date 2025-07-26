@@ -53,9 +53,9 @@ if uploaded_file is not None:
         st.error("❌ Dental Calculus detected! Visit a dentist.")
 
     # Twilio credentials (replace with your actual credentials)
-    account_sid = "AC16bea1596a7d82c5a7093c03efe24801"
-    auth_token = "d8f90c3bb9447871ae77a7c236becd36"
-    twilio_number = "+12314121727"  # Your Twilio phone number
+    account_sid = "XXXXXXXXXXXXXXXXXXXXXXX"
+    auth_token = "XXXXXXXXXXXXXXXXXXXXXXXX"
+    twilio_number = "+XXXXXXXXXXXXXXXX"  # Your Twilio phone number
 
     client = Client(account_sid, auth_token)
 
