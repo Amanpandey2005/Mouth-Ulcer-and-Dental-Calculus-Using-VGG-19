@@ -4,6 +4,7 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import argparse
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
 import cv2
 import tensorflow as tf
 from tensorflow.keras.applications import VGG19, ResNet50
@@ -195,13 +196,13 @@ def train_pipeline(dataset_dir, outdir, batch_size=32, epochs=20, fine_tune_laye
     # =============================
     # 3. COMPILE & INITIAL TRAINING
     # =============================
-    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-4),
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-5),
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
     callbacks = [
         EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
-        ModelCheckpoint(filepath=f"{outdir}/best_model.h5", monitor='val_loss', save_best_only=True),
+        ModelCheckpoint(filepath="best_model.h5", monitor='val_loss', save_best_only=True),
         ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=1e-7)
     ]
 
@@ -216,7 +217,7 @@ def train_pipeline(dataset_dir, outdir, batch_size=32, epochs=20, fine_tune_laye
     # =============================
     # 4. FINE-TUNING
     # =============================
-    fine_tune_layers = 20 # Number of layers to fine-tune from the end
+    fine_tune_layers = 30 # Number of layers to fine-tune from the end
     print(f"Starting fine-tuning last {fine_tune_layers} layers...")
     for layer in vgg.layers[-fine_tune_layers:]:
         layer.trainable = True
@@ -359,3 +360,27 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+
+# Accuracy plot
+plt.figure(figsize=(8, 5))
+plt.plot(history.history['accuracy'], label='Train Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.title('Model Accuracy')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Loss plot
+plt.figure(figsize=(8, 5))
+plt.plot(history.history['loss'], label='Train Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.title('Model Loss')
+plt.legend()
+plt.grid(True)
+plt.show()
+
